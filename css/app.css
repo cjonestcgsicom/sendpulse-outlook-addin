@@ -32,13 +32,13 @@ h6 {
     -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
     min-height: 500px;
-    min-width: 320px;
+    min-width: 300px;
     overflow: auto;
     overflow-x: hidden;
 }
 
 .ms-welcome__header {
-    min-height: 250px;
+    min-height: 30px;
     padding: 20px;
     padding-bottom: 30px;
     display: -webkit-flex;
