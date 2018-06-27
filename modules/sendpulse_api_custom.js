@@ -51,7 +51,7 @@ function base64(data){
  * @param secret
  * @param storage
  */
-function init(user_id,secret,storage) {
+function init(user_id,secret,storage, token) {
     API_USER_ID=user_id;
     API_SECRET=secret;
     TOKEN_STORAGE=storage;

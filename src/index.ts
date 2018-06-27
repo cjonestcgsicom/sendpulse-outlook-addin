@@ -20,6 +20,8 @@ $(document).ready(() => {
 
     $('#next').click(next);
     $('#spinner').hide();
+    $("#next").hide();
+
 
 // The initialize function must be run each time a new page is loaded
     Office.initialize = (reason) => {
@@ -35,6 +37,7 @@ $(document).ready(() => {
         $('[data-dismiss]').click((e)=>{
             $('.alert').hide();
         });
+
     };
 
 
@@ -71,16 +74,17 @@ $(document).ready(() => {
         sendPulseClient.getToken((response) => {
             $('#spinner').hide();
 
-            console.log('Token response: ' + JSON.stringify(response));
-
             if(response.access_token.length){
 
-                console.log('Token: ' + response.access_token);
                 sendPulseToken = response.access_token;
                 $('#login_div').hide();
+                $("#next").show();
                 saveSendPulseToken(sendPulseToken);
                 saveSendPulseID(sendPulseID);
                 saveSendPulseSecret(sendPulseSecret);
+                sendPulseClient.getAddressBooks((res)=> {
+
+                });
             }
             else {
                 showAlert("Authentication failed! " + response.message ? response.message : "");
