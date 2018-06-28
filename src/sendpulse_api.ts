@@ -20,19 +20,32 @@ class SendPulseClient {
             'client_secret': this.clientSecret
         };
 
-        'https://api.sendpulse.com/oauth/access_token'
-        this.makeRequest(parameters, 'POST', this.baseURL + 'token', false, callback);
+        //'https://api.sendpulse.com/oauth/access_token'
+        this.makeRequest(parameters, 'POST', this.baseURL + 'sendpulsetoken', false, callback);
     }
 
     getAddressBooks(callback){
 
-        this.makeRequest(null, 'GET', ' https://api.sendpulse.com/addressbooks', true, callback);
+        this.token = localStorage.getItem("sendPulseToken");
+        let parameters = {
+            'url': 'listAddressBooks',
+            'token': this.token
+        }
+        //' https://api.sendpulse.com/addressbooks'
+        this.makeRequest(parameters, 'POST', this.baseURL + 'sendpulse', true, callback);
     }
 
     getAddressBookContacts(bookID, callback) {
 
-        let url = 'https://api.sendpulse.com/addressbooks/'+ bookID +'/emails';
-        this.makeRequest(null, 'GET', url, true, callback);
+        //'https://api.sendpulse.com/addressbooks/'+ bookID +'/emails';
+        this.token = localStorage.getItem("sendPulseToken");
+        let parameters = {
+            'url': 'getEmailsFromBook',
+            'id' : bookID,
+            'token': this.token
+        }
+
+        this.makeRequest(parameters, 'POST', this.baseURL + 'sendpulse', true, callback);
     }
 
     makeRequest(data, method: string, url: string, authorized: boolean, callback) {

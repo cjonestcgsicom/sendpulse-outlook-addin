@@ -20,6 +20,11 @@ var API_USER_ID="";
 var API_SECRET="";
 var TOKEN_STORAGE="";
 var TOKEN="";
+var safe_calls = [
+    "getToken",
+    "listAddressBooks",
+    "getEmailsFromBook",
+    "addEmails"];
 
 /**
  * MD5
@@ -52,19 +57,36 @@ function base64(data){
  * @param storage
  */
 function init(user_id,secret,storage, token) {
-    API_USER_ID=user_id;
-    API_SECRET=secret;
-    TOKEN_STORAGE=storage;
+    API_USER_ID = user_id;
+    API_SECRET = secret;
+    TOKEN_STORAGE = storage;
 
-    // var hashName = md5(API_USER_ID+'::'+API_SECRET);
-    // if (fs.existsSync(TOKEN_STORAGE+hashName)) {
-    //     TOKEN = fs.readFileSync(TOKEN_STORAGE+hashName,{encoding:'utf8'});
-    // }
-
-    // if (! TOKEN.length) {
-    //     getToken();
-    // }
 }
+
+
+/**
+  *
+  *  general internal call with all parameters we need to make outer call
+  *  to single sendPulse endpoint
+  *  only works if 'url' parameter matches the safe function call of this class
+  *
+  *  @param params - call json params
+  *  @param callback
+  *        Define the function  that will be called
+  *        when a response is received.
+  *
+*/
+function generalCall(params, callback){
+
+    if( safe_calls.indexOf(params.url) == -1) {
+        callback({error: 'no_such_call', message:'No such safe call in sendpulse: ' + params.url, error_description: "incorrect_call", error_code: 401});
+    }
+    else
+    {
+        //call api function by url name from safe_calls
+        exports[params.url](callback, params);
+    }
+};
 
 /**
  * Form and send request to API service
@@ -110,8 +132,6 @@ function sendRequest(path, method, data, useToken, callback){
             }
             callback(body);
         });
-
-
 }
 
 /**
@@ -256,17 +276,22 @@ function serialize(mixed_value) {
  * @param limit
  * @param offset
  */
-function listAddressBooks(callback,limit,offset){
+function listAddressBooks(callback, params){
     var data={}
-    if (limit === undefined) {
-        limit = null;
-    } else {
+    if (params.limit === undefined) {
+      //no limit
+    }else {
         data['limit'] = limit;
     }
-    if (offset === undefined) {
-        offset = null;
+    if (params.offset === undefined) {
+      //no offset
     } else {
         data['offset'] = offset;
+    }
+    if (params.token === undefined) {
+        callback({error: "no_token", message:'Not authorized!', error_description: "no_token", error_code: 402});
+    } else {
+        data['token'] = params.token;
     }
     sendRequest('addressbooks', 'GET', data, true, callback);
 }
@@ -354,11 +379,19 @@ function getBookInfo(callback,id){
  * @param callback
  * @param id
  */
-function getEmailsFromBook(callback,id){
-    if (id===undefined) {
+function getEmailsFromBook(callback,params){
+    if (params.id === undefined) {
         return callback(returnError('Empty book id'));
     }
-    sendRequest( 'addressbooks/' + id + '/emails', 'GET', {}, true, callback );
+
+    var data = {};
+    if (params.token === undefined) {
+        callback({error: "no_token", message:'Not authorized!', error_description: "no_token", error_code: 402});
+    } else {
+        data['token'] = params.token;
+    }
+
+    sendRequest( 'addressbooks/' + params.id + '/emails', 'GET', data, true, callback );
 }
 
 /**
@@ -368,12 +401,18 @@ function getEmailsFromBook(callback,id){
  * @param id
  * @param emails
  */
-function addEmails(callback,id,emails){
-    if ((id===undefined) || (emails === undefined) || (! emails.length)) {
+function addEmails(callback,params){
+    if ((params.id===undefined) || (params.emails === undefined) || (! params.emails.length)) {
         return callback(returnError("Empty email or book id"));
     }
-    var data = {emails: serialize(emails)};
-    sendRequest( 'addressbooks/' + id + '/emails', 'POST', data, true, callback );
+    var data = {emails: serialize(params.emails)};
+    if (params.token === undefined) {
+        callback({error: "no_token", message:'Not authorized!', error_description: "no_token", error_code: 402});
+    } else {
+        data['token'] = params.token;
+    }
+
+    sendRequest( 'addressbooks/' + params.id + '/emails', 'POST', data, true, callback );
 }
 
 /**
@@ -1227,3 +1266,4 @@ exports.smsCancelCampaign = smsCancelCampaign;
 exports.smsGetCampaignCost = smsGetCampaignCost;
 exports.smsDeleteCampaign = smsDeleteCampaign;
 exports.getToken = getToken;
+exports.generalCall = generalCall;

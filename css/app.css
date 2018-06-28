@@ -124,9 +124,15 @@ h6 {
     font-size: 14pt;
 }
 
+
 .ms-welcome__action.ms-Button--hero:hover .ms-Button-icon .ms-Icon {
     border: none;
 }
+
+.ms-welcome__action.ms-Button--hero:hover .ms-Button-label-small {
+    font-size: 10pt!important;
+}
+
 
 @media (min-width: 0) and (max-width: 350px) {
     .ms-welcome__features {

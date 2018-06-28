@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const sendpulse = require('./modules/sendpulse_api_custom.js');
+var postman_request = require('postman-request');
 module.exports = {
     entry: {
         app: './src/index.ts',
@@ -18,6 +19,19 @@ module.exports = {
 
             app.post('/token', bodyParser.json(), function(req, res) {
                 console.log(req.body);
+                var url = 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
+                postman_request.post({url: url, form: req.body}, function optionalCallback(err, httpResponse, body) {
+                    if (err) {
+                        res.send(err);
+                        console.error('failed:', err);
+                    }
+                    console.log('Call successful!  Server responded with:', JSON.stringify(body));
+                    res.send(body);
+                });
+            });
+
+            app.post('/sendpulsetoken', bodyParser.json(), function(req, res) {
+                console.log(req.body);
 
                 var data = req.body;
                 sendpulse.init(data.client_id, data.client_secret, '/tmp/');
@@ -26,6 +40,27 @@ module.exports = {
                 });
 
             });
+
+            app.post('/sendpulse', bodyParser.json(), function(req, res) {
+                console.log(req.body);
+                var parameters = req.body;
+                if(!parameters)
+                {
+                    res.send({message: "request parameters undefined!", error: "no_parameters", error_code: 406});
+                    return;
+                }
+                if(!parameters.url)
+                {
+                    res.send({message: "request function undefined!", error: "no_parameters", error_code: 407});
+                    return;
+                }
+
+                sendpulse.generalCall(parameters, function(response){
+                    res.send(response);
+                });
+
+            });
+
 
         }
     },

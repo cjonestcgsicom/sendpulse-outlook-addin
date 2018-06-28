@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GreenRope Synch</title>
+
+    <!-- Office JavaScript API -->
+    <!--<script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.debug.js"></script>-->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/beta/hosted/office.js"></script>
+
+    <!-- LOCAL -->
+    <link rel="stylesheet" href="node_modules/office-ui-fabric-js/dist/css/fabric.min.css" />
+    <link rel="stylesheet" href="node_modules/office-ui-fabric-js/dist/css/fabric.components.css" />
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="node_modules/office-ui-fabric-js/dist/js/fabric.js"></script>
+
+    <!-- Latest compiled Bootstrap JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <script type="text/javascript" src="src/synchdialog.js"></script>
+    <!-- Template styles -->
+    <link href="css/app.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="ms-font-m ms-welcome">
+<header class="ms-welcome__header ms-bgColor-neutralLighter ms-u-fadeIn500">
+    <img width="50" height="50" src="assets/logo-filled.png" alt="greenrope-outlook-addin" title="green-rope-sync"/>
+</header>
+<main id="app-body" class="ms-welcome__main" style="display: none;">
+
+    <div id="spinner">
+        <img src = "assets/spinner.gif" class="center-img">
+    </div>
+
+    <br />
+
+    <h3 class="ms-font-xl ms-fontWeight-semilight ms-fontColor-neutralPrimary ms-u-slideUpIn20" id="welcome_text">Synchronize your mail contacts with SendPulse</h3>
+
+    <!--  alert popup -->
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <strong>Error!</strong><span id="error_text"></span>
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!-- select controls div-->
+    <div class="ms-navigation__content" id="sync_div">
+
+        <div class="form-group">
+            <label for="foldersList">Select Contacts Folder</label>
+            <select class="form-control" id="foldersList">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+
+        <br />
+        <br />
+
+        <button id="run" class="ms-socialSignInButton ms-Button ms-microsoftAccountColor" data-dismiss="alert">
+            <span id="syncBtnTitle" class="ms-buttonTextColor"> Sync Contacts </span>
+        </button>
+
+        <br />
+        <br />
+
+        <!-- synch progress -->
+        <div class="progress" style="height: 35px;" id="progress_dynamics">
+            <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                <span id="current-progress"></span>
+            </div>
+        </div>
+
+    </div>
+
+
+</main>
+
+</body>
+
+</html>
