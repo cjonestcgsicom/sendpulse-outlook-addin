@@ -48,6 +48,18 @@ class SendPulseClient {
         this.makeRequest(parameters, 'POST', this.baseURL + 'sendpulse', true, callback);
     }
 
+    addEmailsToAddressBook(bookID, emails, callback) {
+        this.token = localStorage.getItem("sendPulseToken");
+        let parameters = {
+            'url': 'addEmails',
+            'id' : bookID,
+            'emails': emails,
+            'token': this.token
+        }
+
+        this.makeRequest(parameters, 'POST', this.baseURL + 'sendpulse', true, callback);
+    }
+
     makeRequest(data, method: string, url: string, authorized: boolean, callback) {
 
         let self = this;

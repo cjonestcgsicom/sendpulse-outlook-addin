@@ -4,7 +4,7 @@
  */
 
 import {SendPulseClient} from './sendpulse_api';
-import listTable2_Accent1 = Word.Style.listTable2_Accent1;
+
 
 $(document).ready(() => {
 
@@ -176,9 +176,6 @@ $(document).ready(() => {
     }
 
 
-
-
-
     function logout(){
         localStorage.removeItem('sendPulseToken');
         localStorage.removeItem('sendPulseID');
@@ -212,9 +209,11 @@ $(document).ready(() => {
         var book_index =  $("#book_select").val();;
         console.log("AddressBooks selected index: " + book_index );
 
+
         if(book_index < addressBooks.length)
         {
             selectedAddressBook = addressBooks[book_index];
+            saveBookID(selectedAddressBook.id);
         }
         else
         {
@@ -272,9 +271,15 @@ $(document).ready(() => {
         localStorage.setItem('emailsSelected', emails_stringified);
     }
 
-    function saveMasterMode(masterMode: number){
+    function saveMasterMode(masterMode){
         localStorage.removeItem('masterMode');
         localStorage.setItem('masterMode', masterMode.toString());
+    }
+
+    function saveBookID(bookID: number)
+    {
+        localStorage.removeItem('bookID');
+        localStorage.setItem('bookID', bookID.toString());
     }
 
     //show alert

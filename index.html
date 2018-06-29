@@ -39,94 +39,94 @@
 </head>
 
 <body class="ms-font-m ms-welcome">
-    <header class="ms-welcome__header ms-bgColor-neutralLighter ms-u-fadeIn500">
-        <img width="50" height="50" src="assets/logo-filled.png" alt="sendpulse-for-outlook" title="sendpulse-for-outlook" />
-    </header>
-    <section id="sideload-msg" class="ms-welcome__main">
-        <h2 class="ms-font-xl ms-fontWeight-semilight ms-fontColor-neutralPrimary ms-u-slideUpIn20">Please sideload your addin to see app body.</h2>
-    </section>
-    <main id="app-body" class="ms-welcome__main" style="display: none;">
+<header class="ms-welcome__header ms-bgColor-neutralLighter ms-u-fadeIn500">
+    <img width="50" height="50" src="assets/logo-filled.png" alt="sendpulse-for-outlook" title="sendpulse-for-outlook" />
+</header>
+<section id="sideload-msg" class="ms-welcome__main">
+    <h2 class="ms-font-xl ms-fontWeight-semilight ms-fontColor-neutralPrimary ms-u-slideUpIn20">Please sideload your addin to see app body.</h2>
+</section>
+<main id="app-body" class="ms-welcome__main" style="display: none;">
 
-        <div id="spinner">
-            <img src = "assets/spinner.gif" class="center-img">
+    <div id="spinner">
+        <img src = "assets/spinner.gif" class="center-img">
+    </div>
+
+    <br />
+
+    <h3 class="ms-font-xl ms-fontWeight-semilight ms-fontColor-neutralPrimary ms-u-slideUpIn20" id="welcome_text">Synchronize your mail contacts with SendPulse</h3>
+
+    <!--  alert popup -->
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <strong>Error!</strong><span id="error_text"></span>
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!-- select controls div-->
+    <div class="ms-navigation__content" id="login_div">
+
+        <div class="form-group" data-dismiss="alert" >
+            <label for="client_id">ID :</label>
+            <input type="text" class="form-control" id="client_id">
+        </div>
+        <div class="form-group" data-dismiss="alert">
+            <label for="secret">Secret :</label>
+            <input type="password" class="form-control" id="secret">
         </div>
 
         <br />
 
-        <h3 class="ms-font-xl ms-fontWeight-semilight ms-fontColor-neutralPrimary ms-u-slideUpIn20" id="welcome_text">Synchronize your mail contacts with SendPulse</h3>
+        <button id="spAccountButton" class="ms-socialSignInButton ms-Button ms-microsoftAccountColor" data-dismiss="alert">
+            <span id="btnTitle" class="ms-buttonTextColor">SendPulse SingIn</span>
+        </button>
+    </div>
 
-        <!--  alert popup -->
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <strong>Error!</strong><span id="error_text"></span>
-            <button type="button" class="close" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <!-- select controls div-->
+    <div class="ms-navigation__content" id="sync_div">
+
+        <div class="form-group">
+            <label for="book_select">Select Address Book: </label>
+            <select class="form-control" id="book_select">
+                <option>1</option>
+                <option>2</option>
+            </select>
         </div>
-
-        <!-- select controls div-->
-        <div class="ms-navigation__content" id="login_div">
-
-            <div class="form-group" data-dismiss="alert" >
-                <label for="client_id">ID :</label>
-                <input type="text" class="form-control" id="client_id">
-            </div>
-            <div class="form-group" data-dismiss="alert">
-                <label for="secret">Secret :</label>
-                <input type="password" class="form-control" id="secret">
-            </div>
-
-            <br />
-
-            <button id="spAccountButton" class="ms-socialSignInButton ms-Button ms-microsoftAccountColor" data-dismiss="alert">
-                <span id="btnTitle" class="ms-buttonTextColor">SendPulse SingIn</span>
-            </button>
-        </div>
-
-        <!-- select controls div-->
-        <div class="ms-navigation__content" id="sync_div">
-
-            <div class="form-group">
-                <label for="book_select">Select Address Book: </label>
-                <select class="form-control" id="book_select">
-                    <option>1</option>
-                    <option>2</option>
-                </select>
-            </div>
-
-
-            <br />
-
-            <div class="form-check form-check-inline" >
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" checked="true" id="greenrope_master" value="1">
-                <label class="form-check-label" for="greenrope_master">Import</label>
-            </div>
-
-            <br />
-            <br />
-
-            <div class="form-check form-check-inline" >
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="outlook_master" value="2">
-                <label class="form-check-label" for="outlook_master">Export</label>
-            </div>
-
-            <br />
-            <br />
-
-        </div>
-
 
 
         <br />
-        <br />
-        <div role="button" id="next" class="ms-welcome__action ms-Button ms-Button--hero ms-u-slideUpIn20">
-            <span class="ms-Button-label">Next</span>
-            <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--ChevronRight"></i></span>
+
+        <div class="form-check form-check-inline" >
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" checked="true" id="greenrope_master" value="1">
+            <label class="form-check-label" for="greenrope_master">Import from SendPulse</label>
         </div>
 
-        <div role="button" id="logout" class="ms-welcome__action ms-Button ms-Button--hero ms-u-slideUpIn20">
-            <span class="ms-Button-label-small">Logout</span>
+        <br />
+        <br />
+
+        <div class="form-check form-check-inline" >
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="outlook_master" value="2">
+            <label class="form-check-label" for="outlook_master">Export from Outlook</label>
         </div>
-    </main>
+
+        <br />
+        <br />
+
+    </div>
+
+
+
+    <br />
+    <br />
+    <div role="button" id="next" class="ms-welcome__action ms-Button ms-Button--hero ms-u-slideUpIn20">
+        <span class="ms-Button-label">Next</span>
+        <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--ChevronRight"></i></span>
+    </div>
+
+    <div role="button" id="logout" class="ms-welcome__action ms-Button ms-Button--hero ms-u-slideUpIn20">
+        <span class="ms-Button-label-small">Logout</span>
+    </div>
+</main>
 
 
 </body>
