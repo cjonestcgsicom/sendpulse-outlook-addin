@@ -67,7 +67,7 @@ $(document).ready(() => {
         if ( localStorage.getItem("microsoftToken") === null || typeof localStorage.getItem("microsoftToken") === 'undefined' ) {
             console.log("Still not authorized with Microsoft account");
             //$('#syncBtnTitle').html('Select Outlook Contacts Folder');
-
+            showLoginPopup();
         }
         else
         {
