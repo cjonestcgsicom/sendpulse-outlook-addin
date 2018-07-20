@@ -31,10 +31,22 @@ $(document).ready(() => {
     $('#logout').hide();
 
 
-    Office.onReady();
+    $('#sideload-msg').hide();
+    $('#app-body').show();
+
+    $('#spAccountButton').click(login);
+    $('.alert').hide();
+
+    $('.close').click((e)=>{
+        $('.alert').hide();
+    });
+    $('[data-dismiss]').click((e)=>{
+        $('.alert').hide();
+    });
 
 // The initialize function must be run each time a new page is loaded
     Office.initialize = (reason) => {
+        /*
         $('#sideload-msg').hide();
         $('#app-body').show();
 
@@ -47,7 +59,7 @@ $(document).ready(() => {
         $('[data-dismiss]').click((e)=>{
             $('.alert').hide();
         });
-
+        */
     };
 
     statusCheck();
