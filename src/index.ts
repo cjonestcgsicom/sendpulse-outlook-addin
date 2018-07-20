@@ -30,6 +30,9 @@ $(document).ready(() => {
     $('#login_div').hide();
     $('#logout').hide();
 
+
+    Office.onReady();
+
 // The initialize function must be run each time a new page is loaded
     Office.initialize = (reason) => {
         $('#sideload-msg').hide();
