@@ -6,7 +6,8 @@ module.exports = {
         app: './src/index.ts',
         'function-file': './function-file/function-file.ts',
         'greenrope_api': './src/sendpulse_api.ts',
-        'synchdialog' : './src/synchdialog.ts'
+        'synchdialog' : './src/synchdialog.ts',
+        'popup': './src/popup.js'
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.html', '.js']
@@ -98,6 +99,12 @@ module.exports = {
             template: './synchdialog.html',
             filename: 'synchdialog.html',
             chunks: ['synchdialog']
+        }),
+        new HtmlWebpackPlugin({
+            template: './popup.html',
+            filename: 'popup.html',
+            chunks: ['popup']
         })
+
     ]
 };
