@@ -17,7 +17,7 @@ $(document).ready(() => {
    var selectedAddressBook = null;
 
     if (localStorage.getItem("baseURL") === null) {
-      baseURL = 'https://localhost:3000/';
+      baseURL = 'https://34.201.190.83:8080/';
       localStorage.setItem('baseURL', baseURL);
     }
 

@@ -1,0 +1,1 @@
+sudo node_modules/forever/bin/forever start -al stream.log -o output.log -c "npm start" ./
