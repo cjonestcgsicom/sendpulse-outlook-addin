@@ -26,9 +26,24 @@ $(document).ready(() => {
     localStorage.setItem('redirectURI', baseURL + 'function-file/function-file.html');
     localStorage.removeItem('selectedMicrosoftContacts');
 
+    $('#sideload-msg').hide();
+    $('.alert').hide();
+    $('#progress_dynamics').hide();
+    $('#sync_div').hide();
+    $('#spinner').hide();
+    $('#app-body').show();
+    $('#run').hide();
+    $('.close').click((e)=>{
+        $('.alert').hide();
+    });
+    $('[data-dismiss]').click((e)=>{
+        $('.alert').hide();
+    });
+    onStateChange();
 
 // The initialize function must be run each time a new page is loaded
     Office.initialize = (reason) => {
+        /*
         $('#sideload-msg').hide();
         $('.alert').hide();
         $('#progress_dynamics').hide();
@@ -43,6 +58,7 @@ $(document).ready(() => {
             $('.alert').hide();
         });
         onStateChange();
+        */
     };
 
     //auth State's been changed so we just check if it is appropriate to get contacts and synch them
