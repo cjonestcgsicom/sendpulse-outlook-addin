@@ -12,7 +12,8 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.html', '.js']
     },
-
+    devtool: "sourcemap",
+    
     devServer: {
         setup: function(app) {
 
